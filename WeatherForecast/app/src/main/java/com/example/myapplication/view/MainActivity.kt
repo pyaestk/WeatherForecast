@@ -1,14 +1,16 @@
- package com.example.myapplication
+ package com.example.myapplication.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.adapter.ForecastAdapter
 import com.example.myapplication.model.DailyForecast
 import com.example.myapplication.repository.ForecastRepo
 
@@ -36,8 +38,7 @@ import com.example.myapplication.repository.ForecastRepo
         val recyclerView: RecyclerView = findViewById(R.id.forecastList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val forecastAdapter = ForecastAdapter {
-            val msg = getString(R.string.forecast_clicked_format, it.temp, it.description)
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            showForecastDetail(it)
         }
         recyclerView.adapter = forecastAdapter
 
@@ -50,4 +51,11 @@ import com.example.myapplication.repository.ForecastRepo
         forecastRepo.weeklyForecast.observe(this, weeklyForecastObserver)
         
     }
+
+     private fun showForecastDetail(forecast: DailyForecast) {
+         val intent = Intent(this, ForecastDetailActivity::class.java)
+         intent.putExtra("temp", forecast.temp)
+         intent.putExtra("des", forecast.description)
+         startActivity(intent)
+     }
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.utils.formatTempForDisplay
 import com.example.myapplication.model.DailyForecast
-
-
 
 class ForecastAdapter(
     private val clickHandler: (DailyForecast) -> Unit
 ): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
-    DIFF_CONFIG) {
+    DIFF_CONFIG
+) {
 
     class DailyForecastViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
@@ -22,7 +23,7 @@ class ForecastAdapter(
         private val desText: TextView = view.findViewById(R.id.desText)
 
         fun bind(dailyForecast: DailyForecast) {
-            tempText.text = String.format("%.2f", dailyForecast.temp)
+            tempText.text = formatTempForDisplay(dailyForecast.temp)
             desText.text = dailyForecast.description
         }
 
