@@ -2,11 +2,16 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/my_light_primary</item>
+        <item name="colorPrimary">@color/my_light_primary</item>
     </style>
 
-    <style name="ForecastDetail" parent="Theme.Material3.DayNight">
+    <style name="ForecastDetailTheme" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/my_light_primary</item>
+        <item name="colorSurface">@color/my_light_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+<!--        <item name="android:textColorPrimary">@color/white</item>-->
+<!--        <item name="android:titleTextColor">@color/white</item>-->
+        
     </style>
 
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />

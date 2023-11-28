@@ -8,22 +8,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.TempDisplaySetting
+import com.example.myapplication.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
 import com.example.myapplication.model.DailyForecast
 
 class ForecastAdapter(
-    private val clickHandler: (DailyForecast) -> Unit
+    private val tempDisplaySettingManager: TempDisplaySettingManager,
+    private val clickHandler: (DailyForecast) -> Unit,
+
 ): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
     DIFF_CONFIG
 ) {
 
-    class DailyForecastViewHolder(view: View):RecyclerView.ViewHolder(view) {
+    class DailyForecastViewHolder(view: View, private val tempDisplaySettingManager: TempDisplaySettingManager):RecyclerView.ViewHolder(view) {
 
         private val tempText: TextView = view.findViewById(R.id.tempText)
         private val desText: TextView = view.findViewById(R.id.desText)
 
         fun bind(dailyForecast: DailyForecast) {
-            tempText.text = formatTempForDisplay(dailyForecast.temp)
+            tempText.text = formatTempForDisplay(dailyForecast.temp, tempDisplaySettingManager.getTempDisplaySetting())
             desText.text = dailyForecast.description
         }
 
@@ -46,7 +50,7 @@ class ForecastAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyForecastViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.forecastitem, parent, false)
-        return DailyForecastViewHolder(itemView)
+        return DailyForecastViewHolder(itemView, tempDisplaySettingManager)
     }
 
     override fun onBindViewHolder(holder: DailyForecastViewHolder, position: Int) {

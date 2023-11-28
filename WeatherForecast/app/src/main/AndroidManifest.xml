@@ -16,10 +16,11 @@
             android:name=".view.ForecastDetailActivity"
             android:exported="false"
             android:parentActivityName=".view.MainActivity"
-            android:theme="@style/ForecastDetail"/>
+            android:theme="@style/ForecastDetailTheme"/>
         <activity
             android:name=".view.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/ForecastDetailTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
