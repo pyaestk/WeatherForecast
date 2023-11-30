@@ -1,27 +1,18 @@
  package com.example.myapplication.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.utils.AppNavigator
 import com.example.myapplication.R
 import com.example.myapplication.utils.TempDisplaySettingManager
-import com.example.myapplication.adapter.ForecastAdapter
-import com.example.myapplication.model.DailyForecast
-import com.example.myapplication.repository.ForecastRepo
 import com.example.myapplication.utils.showTempDisplayDialog
 
- class MainActivity : AppCompatActivity() {
+ class MainActivity : AppCompatActivity(), AppNavigator {
 
-    private val forecastRepo = ForecastRepo()
+
      private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,46 +20,11 @@ import com.example.myapplication.utils.showTempDisplayDialog
         setContentView(R.layout.activity_main)
 
         tempDisplaySettingManager = TempDisplaySettingManager(this)
-//
-//        val zipcodeEditText: EditText = findViewById(R.id.zipcodeEditText)
-//        val submit: Button = findViewById(R.id.enterButton)
-//
-//        submit.setOnClickListener{
-//            val zipCode: String = zipcodeEditText.text.toString()
-//            if (zipCode.length != 5) {
-//                Toast.makeText(this, "Enter valid zipcode", Toast.LENGTH_SHORT).show()
-//            } else {
-//                forecastRepo.loadForecast(zipCode)
-//            }
-//        }
-
-        //adapter
-        val recyclerView: RecyclerView = findViewById(R.id.forecastList)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val forecastAdapter = ForecastAdapter(tempDisplaySettingManager) {
-            showForecastDetail(it)
-        }
-        recyclerView.adapter = forecastAdapter
-
-        //Live data part
-        val weeklyForecastObserver = Observer<List<DailyForecast>> { forecastItems ->
-            //update list UI (adapter)
-            forecastAdapter.submitList(forecastItems)
-        }
-
-        forecastRepo.weeklyForecast.observe(this, weeklyForecastObserver)
 
         //fragment for location entry
         supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, LocationEntryFragment()).commit()
         
     }
-
-     private fun showForecastDetail(forecast: DailyForecast) {
-         val intent = Intent(this, ForecastDetailActivity::class.java)
-         intent.putExtra("temp", forecast.temp)
-         intent.putExtra("des", forecast.description)
-         startActivity(intent)
-     }
 
      //for menu
      override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,5 +44,15 @@ import com.example.myapplication.utils.showTempDisplayDialog
          }
      }
 
+     //App Navigation
+     override fun navigateToCurrentForecast(zipcode: String) {
+         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, CurrentForecastFragment.newInstance(zipcode)).commit()
+//         forecastRepo.loadForecast(zipcode)
+     }
 
-}
+     override fun navigateToLocationEntry() {
+         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, LocationEntryFragment()).commit()
+     }
+
+
+ }

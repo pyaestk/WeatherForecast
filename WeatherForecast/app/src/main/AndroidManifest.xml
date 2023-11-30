@@ -15,7 +15,6 @@
         <activity
             android:name=".view.ForecastDetailActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
             android:theme="@style/ForecastDetailTheme"/>
         <activity
             android:name=".view.MainActivity"
