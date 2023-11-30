@@ -2,4 +2,6 @@
     <string name="app_name">Weather Forecast</string>
     <string name="forecast_clicked_format">Forecast: %1$.2f° %2$s</string>
     <string name="forecast_detail">Forecast Details</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

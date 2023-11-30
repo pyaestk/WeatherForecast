@@ -3,8 +3,6 @@ package com.example.myapplication.utils
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.example.myapplication.TempDisplaySetting
-import com.example.myapplication.TempDisplaySettingManager
 
 fun formatTempForDisplay(temp: Float, tempDisplaySetting: TempDisplaySetting): String {
 

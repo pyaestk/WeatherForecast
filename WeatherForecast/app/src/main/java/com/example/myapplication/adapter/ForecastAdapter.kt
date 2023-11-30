@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.TempDisplaySetting
-import com.example.myapplication.TempDisplaySettingManager
+import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
 import com.example.myapplication.model.DailyForecast
 
@@ -17,7 +16,7 @@ class ForecastAdapter(
     private val tempDisplaySettingManager: TempDisplaySettingManager,
     private val clickHandler: (DailyForecast) -> Unit,
 
-): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
+    ): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
     DIFF_CONFIG
 ) {
 
