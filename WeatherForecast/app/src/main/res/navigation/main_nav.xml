@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/locationEntryFragment">
+
+    <fragment
+        android:id="@+id/locationEntryFragment"
+        android:name="com.example.myapplication.view.LocationEntryFragment"
+        android:label="fragment_location_entry"
+        tools:layout="@layout/fragment_location_entry" >
+        <action
+            android:id="@+id/action_locationEntryFragment_to_currentForecastFragment2"
+            app:destination="@id/currentForecastFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentForecastFragment2"
+        android:name="com.example.myapplication.view.CurrentForecastFragment"
+        android:label="fragment_current_forecast"
+        tools:layout="@layout/fragment_current_forecast" >
+        <action
+            android:id="@+id/action_currentForecastFragment2_to_locationEntryFragment"
+            app:destination="@id/locationEntryFragment" />
+        <action
+            android:id="@+id/action_currentForecastFragment2_to_forecastDetailsFragment"
+            app:destination="@id/forecastDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastDetailsFragment"
+        android:name="com.example.myapplication.view.ForecastDetailsFragment"
+        android:label="fragment_forecast_detail"
+        tools:layout="@layout/fragment_forecast_detail" />
+
+</navigation>

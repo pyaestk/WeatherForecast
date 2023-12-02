@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -68,10 +69,9 @@ class CurrentForecastFragment : Fragment() {
     }
 
     private fun showForecastDetail(forecast: DailyForecast) {
-        val intent = Intent(requireContext(), ForecastDetailActivity::class.java)
-        intent.putExtra("temp", forecast.temp)
-        intent.putExtra("des", forecast.description)
-        startActivity(intent)
+
+        appNavigator.navigateToForecastDetails(forecast)
+
     }
 
     companion object {
