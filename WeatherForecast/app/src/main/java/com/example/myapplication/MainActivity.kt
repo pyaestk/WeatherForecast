@@ -42,12 +42,10 @@ import com.example.myapplication.repository.ForecastRepo
         recyclerView.adapter = forecastAdapter
 
         //Live data part
-        val weeklyForecastObserver = Observer<List<DailyForecast>> { forecastItems ->
+        forecastRepo.weeklyForecast.observe(this, Observer { forecastItems ->
             //update list UI (adapter)
             forecastAdapter.submitList(forecastItems)
-        }
-
-        forecastRepo.weeklyForecast.observe(this, weeklyForecastObserver)
+        })
         
     }
 }

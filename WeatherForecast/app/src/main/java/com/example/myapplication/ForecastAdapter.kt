@@ -13,8 +13,7 @@ import com.example.myapplication.model.DailyForecast
 
 class ForecastAdapter(
     private val clickHandler: (DailyForecast) -> Unit
-): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
-    DIFF_CONFIG) {
+): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(DIFF_CONFIG) {
 
     class DailyForecastViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
