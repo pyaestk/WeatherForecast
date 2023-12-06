@@ -5,18 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.myapplication.utils.AppNavigator
 import com.example.myapplication.R
-import com.example.myapplication.model.DailyForecast
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.showTempDisplayDialog
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
- class MainActivity : AppCompatActivity(), AppNavigator {
+ class MainActivity : AppCompatActivity() {
 
 
      private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
@@ -30,7 +28,9 @@ import com.google.android.material.appbar.MaterialToolbar
         //for app bar
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<MaterialToolbar>(R.id.materialToolbar).setupWithNavController(navController, appBarConfiguration)
+        findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle(R.string.app_name)
+        findViewById<BottomNavigationView>(R.id.bottomNavigationbar).setupWithNavController(navController)
+
     }
 
      //for menu
@@ -49,27 +49,6 @@ import com.google.android.material.appbar.MaterialToolbar
              }
              else -> super.onOptionsItemSelected(item)
          }
-     }
-
-     //App Navigation
-     override fun navigateToCurrentForecast(zipcode: String) {
-         val action = LocationEntryFragmentDirections.actionLocationEntryFragmentToCurrentForecastFragment2()
-         findNavController(R.id.nav_host_fragment).navigate(action)
-         
-//         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, CurrentForecastFragment.newInstance(zipcode)).commit()
-//         forecastRepo.loadForecast(zipcode)
-     }
-
-     override fun navigateToLocationEntry() {
-         val action = CurrentForecastFragmentDirections.actionCurrentForecastFragment2ToLocationEntryFragment()
-         findNavController(R.id.nav_host_fragment).navigate(action)
-//         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, LocationEntryFragment()).commit()
-     }
-
-     override fun navigateToForecastDetails(forecast: DailyForecast) {
-         val action = CurrentForecastFragmentDirections.actionCurrentForecastFragment2ToForecastDetailsFragment(forecast.temp, forecast.description)
-         findNavController(R.id.nav_host_fragment).navigate(action)
-
      }
 
 
