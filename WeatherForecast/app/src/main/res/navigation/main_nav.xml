@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/locationEntryFragment"
         android:name="com.example.myapplication.view.LocationEntryFragment"
-        android:label="fragment_location_entry"
+        android:label="Weather Forecast"
         tools:layout="@layout/fragment_location_entry" >
         <action
             android:id="@+id/action_locationEntryFragment_to_currentForecastFragment2"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/currentForecastFragment2"
         android:name="com.example.myapplication.view.CurrentForecastFragment"
-        android:label="fragment_current_forecast"
+        android:label="Forecast Lists"
         tools:layout="@layout/fragment_current_forecast" >
         <action
             android:id="@+id/action_currentForecastFragment2_to_locationEntryFragment"
@@ -29,7 +29,14 @@
     <fragment
         android:id="@+id/forecastDetailsFragment"
         android:name="com.example.myapplication.view.ForecastDetailsFragment"
-        android:label="fragment_forecast_detail"
-        tools:layout="@layout/fragment_forecast_detail" />
+        android:label="Forecast Detail"
+        tools:layout="@layout/fragment_forecast_detail" >
+        <argument
+            android:name="temp"
+            app:argType="float" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

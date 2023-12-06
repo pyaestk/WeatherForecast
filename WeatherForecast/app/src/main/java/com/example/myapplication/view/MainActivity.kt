@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.utils.AppNavigator
 import com.example.myapplication.R
 import com.example.myapplication.model.DailyForecast
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.showTempDisplayDialog
+import com.google.android.material.appbar.MaterialToolbar
 
  class MainActivity : AppCompatActivity(), AppNavigator {
 
@@ -23,9 +27,10 @@ import com.example.myapplication.utils.showTempDisplayDialog
 
         tempDisplaySettingManager = TempDisplaySettingManager(this)
 
-        //fragment for location entry
-//        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, LocationEntryFragment()).commit()
-        
+        //for app bar
+        val navController = findNavController(R.id.nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        findViewById<MaterialToolbar>(R.id.materialToolbar).setupWithNavController(navController, appBarConfiguration)
     }
 
      //for menu
@@ -62,7 +67,7 @@ import com.example.myapplication.utils.showTempDisplayDialog
      }
 
      override fun navigateToForecastDetails(forecast: DailyForecast) {
-         val action = CurrentForecastFragmentDirections.actionCurrentForecastFragment2ToForecastDetailsFragment()
+         val action = CurrentForecastFragmentDirections.actionCurrentForecastFragment2ToForecastDetailsFragment(forecast.temp, forecast.description)
          findNavController(R.id.nav_host_fragment).navigate(action)
 
      }
