@@ -33,23 +33,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
     }
 
-     //for menu
-     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-         val inflater: MenuInflater = menuInflater
-         inflater.inflate(R.menu.menu, menu)
-         return true
-     }
-
-     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         return when(item.itemId) {
-             R.id.tempDisplaySetting -> {
-                 showTempDisplayDialog(this, tempDisplaySettingManager)
-//                Toast.makeText(this, "clicked menu item", Toast.LENGTH_SHORT).show()
-                 return true
-             }
-             else -> super.onOptionsItemSelected(item)
-         }
-     }
+//     //for menu
+//     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//         val inflater: MenuInflater = menuInflater
+//         inflater.inflate(R.menu.menu, menu)
+//         return true
+//     }
+//
+//     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//         return when(item.itemId) {
+//             R.id.tempDisplaySetting -> {
+//                 showTempDisplayDialog(this, tempDisplaySettingManager)
+////                Toast.makeText(this, "clicked menu item", Toast.LENGTH_SHORT).show()
+//                 return true
+//             }
+//             else -> super.onOptionsItemSelected(item)
+//         }
+//     }
 
 
  }

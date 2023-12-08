@@ -14,6 +14,7 @@ import com.example.myapplication.adapter.ForecastAdapter
 import com.example.myapplication.model.DailyForecast
 import com.example.myapplication.repository.ForecastRepo
 import com.example.myapplication.utils.TempDisplaySettingManager
+import com.example.myapplication.view.WeeklyForecastFragment.Companion.KEY_ZIPCODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CurrentForecastFragment : Fragment() {
@@ -62,9 +63,7 @@ class CurrentForecastFragment : Fragment() {
     }
 
     companion object {
-
         const val KEY_ZIPCODE = "key_zipcode" //defined as key
-
         fun newInstance(zipcode: String): CurrentForecastFragment {
             val fragment = CurrentForecastFragment()
             val bundle = Bundle()

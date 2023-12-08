@@ -61,14 +61,9 @@ class WeeklyForecastFragment : Fragment() {
         return view
     }
 
-    private fun showLocationDetail() {
-
-    }
 
     companion object {
-
         const val KEY_ZIPCODE = "key_zipcode" //defined as key
-
         fun newInstance(zipcode: String): WeeklyForecastFragment {
             val fragment = WeeklyForecastFragment()
             val bundle = Bundle()
