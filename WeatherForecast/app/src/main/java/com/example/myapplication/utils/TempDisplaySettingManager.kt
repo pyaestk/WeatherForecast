@@ -5,7 +5,7 @@ import android.content.Context
 enum class TempDisplaySetting {
     Fahrenheit, Celsius
 }
-//shared preference
+//using shared preference
 class TempDisplaySettingManager(context: Context) {
     private val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
