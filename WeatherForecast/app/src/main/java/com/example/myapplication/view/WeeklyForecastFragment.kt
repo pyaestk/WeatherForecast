@@ -13,12 +13,15 @@ import com.example.myapplication.R
 import com.example.myapplication.adapter.ForecastAdapter
 import com.example.myapplication.model.DailyForecast
 import com.example.myapplication.repository.ForecastRepo
+import com.example.myapplication.repository.Location
+import com.example.myapplication.repository.LocationRepo
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class WeeklyForecastFragment : Fragment() {
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
     private val forecastRepo = ForecastRepo()
+    private lateinit var locationRepo: LocationRepo
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,14 +32,6 @@ class WeeklyForecastFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
 
-        //fab
-        val locationEntryButton: FloatingActionButton = view.findViewById(R.id.fab)
-        locationEntryButton.setOnClickListener {
-
-            val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToLocationEntryFragment()
-            findNavController().navigate(action)
-            
-        }
 
         //adapter
         val recyclerView: RecyclerView = view.findViewById(R.id.forecastList)
@@ -48,7 +43,6 @@ class WeeklyForecastFragment : Fragment() {
         }
         recyclerView.adapter = forecastAdapter
 
-        //Live data part
         val weeklyForecastObserver = Observer<List<DailyForecast>> { forecastItems ->
             //update list UI (adapter)
             forecastAdapter.submitList(forecastItems)
@@ -56,7 +50,23 @@ class WeeklyForecastFragment : Fragment() {
 
         forecastRepo.weeklyForecast.observe(viewLifecycleOwner, weeklyForecastObserver) //this
 
-        forecastRepo.loadForecast(zipcode)
+
+        //fab
+        val locationEntryButton: FloatingActionButton = view.findViewById(R.id.fab)
+        locationEntryButton.setOnClickListener {
+
+            val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToLocationEntryFragment()
+            findNavController().navigate(action)
+
+        }
+
+        locationRepo = LocationRepo(requireContext())
+        val savedLocationObserver = Observer<Location> { savedLocation ->
+            when(savedLocation) {
+                is Location.Zipcode -> forecastRepo.loadWeeklyForecast(savedLocation.zipcode)
+            }
+        }
+        locationRepo.savedLocation.observe(viewLifecycleOwner, savedLocationObserver)
 
         return view
     }

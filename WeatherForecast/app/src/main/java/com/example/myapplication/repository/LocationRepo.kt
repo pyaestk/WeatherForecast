@@ -20,13 +20,11 @@ class LocationRepo(context: Context) {
     //stored by savedLocation within this class
 
     val savedLocation: LiveData<Location> = _savedLocation
-
     fun saveLocation(location: Location) {
         when (location) {
             is Location.Zipcode -> preferences.edit().putString(KEY_ZIPCODE, location.zipcode).apply()
         }
     }
-
 
     init {
         preferences.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
@@ -36,6 +34,10 @@ class LocationRepo(context: Context) {
             if (zipcode != null && zipcode.isNotBlank()) _savedLocation.value = Location.Zipcode(zipcode)
         }
 
+        broadcastSavedZipcode()
+    }
+
+    private fun broadcastSavedZipcode() {
         val zipcode = preferences.getString(KEY_ZIPCODE, "")
         if (zipcode != null && zipcode.isNotBlank()) _savedLocation.value = Location.Zipcode(zipcode)
     }

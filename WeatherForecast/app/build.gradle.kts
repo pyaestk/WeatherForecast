@@ -1,7 +1,14 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")      //for navigation
+}
+
+val localProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("local.properties")))
 }
 
 android {
@@ -14,8 +21,10 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        android.buildFeatures.buildConfig = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", "\"${localProperties["OPEN_WEATHER_MAP_API_KEY"]}\"")
+
     }
 
     buildTypes {
@@ -34,6 +43,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -47,4 +59,8 @@ dependencies {
     //for navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.8.2")
+    //converter
+    implementation ("com.squareup.retrofit2:converter-moshi:2.5.0") 
 }

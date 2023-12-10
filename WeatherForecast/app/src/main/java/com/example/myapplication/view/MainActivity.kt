@@ -25,9 +25,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
         tempDisplaySettingManager = TempDisplaySettingManager(this)
 
-        //for app bar
+        //for bottom app bar
         val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+//        val appBarConfiguration = AppBarConfiguration(navController.graph)
         findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle(R.string.app_name)
         findViewById<BottomNavigationView>(R.id.bottomNavigationbar).setupWithNavController(navController)
 
