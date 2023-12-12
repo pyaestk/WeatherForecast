@@ -36,7 +36,6 @@ class CurrentForecastFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_current_forecast, container, false) 
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
-        val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
         // Inflate the layout for this fragment
 
         val tempText: TextView = view.findViewById(R.id.currentTempText)
@@ -66,18 +65,6 @@ class CurrentForecastFragment : Fragment() {
         locationRepo.savedLocation.observe(viewLifecycleOwner, savedLocationObserver)
 
         return view
-    }
-
-    companion object {
-        const val KEY_ZIPCODE = "key_zipcode" //defined as key
-        fun newInstance(zipcode: String): CurrentForecastFragment {
-            val fragment = CurrentForecastFragment()
-            val bundle = Bundle()
-            bundle.putString(KEY_ZIPCODE, zipcode)
-            fragment.arguments = bundle
-            return fragment
-        }
-
     }
 
 }

@@ -13,13 +13,10 @@ private const val KEY_ZIPCODE = "key_zipcode"
 class LocationRepo(context: Context) {
 
     private val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-    
+
     private val _savedLocation: MutableLiveData<Location> = MutableLiveData()
-
-    //To prevent outside parties from manipulating the value
-    //stored by savedLocation within this class
-
     val savedLocation: LiveData<Location> = _savedLocation
+
     fun saveLocation(location: Location) {
         when (location) {
             is Location.Zipcode -> preferences.edit().putString(KEY_ZIPCODE, location.zipcode).apply()

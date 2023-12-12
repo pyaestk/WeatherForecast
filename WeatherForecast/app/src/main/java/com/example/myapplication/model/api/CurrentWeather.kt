@@ -2,7 +2,9 @@ package com.example.myapplication.model.api
 
 import com.squareup.moshi.Json
 
-data class Forecast(val temp: Float)
+data class Forecast(
+    val temp: Float
+)
 data class Coordinates(
     val lat: Float,
     val lon: Float
