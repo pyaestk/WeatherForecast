@@ -40,11 +40,13 @@ class CurrentForecastFragment : Fragment() {
 
         val tempText: TextView = view.findViewById(R.id.currentTempText)
         val locationName: TextView = view.findViewById(R.id.locaitonName)
+        val winSpeed: TextView = view.findViewById(R.id.winSpeedText)
 
         //Observing dailyForecast
         val currentWeatherObserver = Observer<CurrentWeather> { weather ->
             locationName.text = weather.name
             tempText.text = formatTempForDisplay(weather.forecast.temp, tempDisplaySettingManager.getTempDisplaySetting())
+            winSpeed.text = weather.wind.speed.toString()
         }
         forecastRepo.currentWeather.observe(viewLifecycleOwner, currentWeatherObserver)
 

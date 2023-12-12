@@ -10,8 +10,15 @@ data class Coordinates(
     val lon: Float
 )
 
+data class Wind(
+    val speed: Float,
+    val deg: Float,
+    val gust: Float
+)
+
 data class CurrentWeather (
     val name: String,
     val coord: Coordinates,
-    @field:Json(name = "main") val forecast: Forecast
+    @field:Json(name = "main") val forecast: Forecast,
+    @field:Json(name = "wind") val wind: Wind
 )
