@@ -19,6 +19,7 @@ android {
         applicationId = "com.example.myapplication"
         minSdk = 24
         targetSdk = 33
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
         android.buildFeatures.buildConfig = true
@@ -62,5 +63,7 @@ dependencies {
     //retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     //converter
-    implementation ("com.squareup.retrofit2:converter-moshi:2.5.0") 
+    implementation ("com.squareup.retrofit2:converter-moshi:2.5.0")
+    //coil
+    implementation("io.coil-kt:coil:2.5.0")
 }

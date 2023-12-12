@@ -33,11 +33,11 @@
         android:id="@+id/currentTempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="8dp"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locaitonName"
+        app:layout_constraintTop_toBottomOf="@+id/currentIcon"
         tools:text="Temperature" />
 
     <ImageView
@@ -50,13 +50,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/currentIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locaitonName"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
-        android:id="@+id/winSpeedText"
+        android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/currentTempText"
-        app:layout_constraintStart_toStartOf="@+id/currentTempText"
-        app:layout_constraintTop_toBottomOf="@+id/currentTempText" />
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentTempText"
+        tools:text="description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

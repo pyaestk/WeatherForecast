@@ -5,23 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.request.ImageRequest
+import coil.request.ImageRequest.*
 import com.example.myapplication.R
-import com.example.myapplication.adapter.ForecastAdapter
-import com.example.myapplication.model.DailyForecast
+
 import com.example.myapplication.model.api.CurrentWeather
+import com.example.myapplication.model.api.weatherDiscription
 import com.example.myapplication.repository.ForecastRepo
 import com.example.myapplication.repository.Location
 import com.example.myapplication.repository.LocationRepo
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
-import com.example.myapplication.view.WeeklyForecastFragment.Companion.KEY_ZIPCODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CurrentForecastFragment : Fragment() {
@@ -40,13 +39,16 @@ class CurrentForecastFragment : Fragment() {
 
         val tempText: TextView = view.findViewById(R.id.currentTempText)
         val locationName: TextView = view.findViewById(R.id.locaitonName)
-        val winSpeed: TextView = view.findViewById(R.id.winSpeedText)
+        val weatherIcon: ImageView = view.findViewById(R.id.currentIcon)
+        val weatherDiscription: TextView = view.findViewById(R.id.descriptionTextView)
 
         //Observing dailyForecast
         val currentWeatherObserver = Observer<CurrentWeather> { weather ->
             locationName.text = weather.name
             tempText.text = formatTempForDisplay(weather.forecast.temp, tempDisplaySettingManager.getTempDisplaySetting())
-            winSpeed.text = weather.wind.speed.toString()
+            val iconId = weather.weather[0].icon
+            weatherIcon.load("http://openweathermap.org/img/wn/${iconId}@2x.png")
+            weatherDiscription.text = weather.weather[0].description
         }
         forecastRepo.currentWeather.observe(viewLifecycleOwner, currentWeatherObserver)
 
@@ -68,5 +70,6 @@ class CurrentForecastFragment : Fragment() {
 
         return view
     }
+
 
 }
