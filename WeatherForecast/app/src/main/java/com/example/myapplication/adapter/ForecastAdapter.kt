@@ -10,24 +10,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
-import com.example.myapplication.model.DailyForecast
+import com.example.myapplication.model.api.DailyForecast
+import java.text.SimpleDateFormat
+import java.util.Date
 
+private val DATE_FORMAT = SimpleDateFormat("MM-dd-yyyy")
 class ForecastAdapter(
     private val tempDisplaySettingManager: TempDisplaySettingManager,
-    private val clickHandler: (DailyForecast) -> Unit,
-
-    ): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(
-    DIFF_CONFIG
-) {
+    private val clickHandler: (DailyForecast) -> Unit
+): ListAdapter<DailyForecast, ForecastAdapter.DailyForecastViewHolder>(DIFF_CONFIG) {
 
     class DailyForecastViewHolder(view: View, private val tempDisplaySettingManager: TempDisplaySettingManager):RecyclerView.ViewHolder(view) {
 
         private val tempText: TextView = view.findViewById(R.id.tempText)
         private val desText: TextView = view.findViewById(R.id.desText)
-
+        private val dateText: TextView = view.findViewById(R.id.dateText)
         fun bind(dailyForecast: DailyForecast) {
-            tempText.text = formatTempForDisplay(dailyForecast.temp, tempDisplaySettingManager.getTempDisplaySetting())
-            desText.text = dailyForecast.description
+            tempText.text = formatTempForDisplay(dailyForecast.temp.max, tempDisplaySettingManager.getTempDisplaySetting())
+            desText.text = dailyForecast.weather[0].description
+            dateText.text = DATE_FORMAT.format(Date(dailyForecast.date * 1000))
         }
 
     }

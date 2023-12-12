@@ -1,6 +1,7 @@
 package com.example.myapplication.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.ForecastAdapter
-import com.example.myapplication.model.DailyForecast
+import com.example.myapplication.model.api.DailyForecast
+import com.example.myapplication.model.api.WeeklyForecast
 import com.example.myapplication.repository.ForecastRepo
 import com.example.myapplication.repository.Location
 import com.example.myapplication.repository.LocationRepo
@@ -26,26 +28,23 @@ class WeeklyForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
-        val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
-
+        tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
+        val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
 
         //adapter
         val recyclerView: RecyclerView = view.findViewById(R.id.forecastList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val forecastAdapter = ForecastAdapter(tempDisplaySettingManager) {
-
-            val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(it.temp, it.description)
-            findNavController().navigate(action)
+            showForecastDetails(it)
         }
         recyclerView.adapter = forecastAdapter
 
-        val weeklyForecastObserver = Observer<List<DailyForecast>> { forecastItems ->
+        val weeklyForecastObserver = Observer<WeeklyForecast> { weeklyForecast ->
             //update list UI (adapter)
-            forecastAdapter.submitList(forecastItems)
+            Log.d("WeeklyForecastFragment", "Observer triggered: $weeklyForecast")
+            forecastAdapter.submitList(weeklyForecast.daily)
         }
 
         forecastRepo.weeklyForecast.observe(viewLifecycleOwner, weeklyForecastObserver) //this
@@ -71,17 +70,25 @@ class WeeklyForecastFragment : Fragment() {
         return view
     }
 
+    private fun showForecastDetails(forecast: DailyForecast) {
+        val temp = forecast.temp.max
+        val description = forecast.weather[0].description
+        val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(temp, description)
+        findNavController().navigate(action)
+    }
 
     companion object {
-        const val KEY_ZIPCODE = "key_zipcode" //defined as key
-        fun newInstance(zipcode: String): WeeklyForecastFragment {
+        const val KEY_ZIPCODE = "key_zipcode"
+
+        fun newInstance(zipcode: String) : WeeklyForecastFragment {
             val fragment = WeeklyForecastFragment()
-            val bundle = Bundle()
-            bundle.putString(KEY_ZIPCODE, zipcode)
-            fragment.arguments = bundle
+
+            val args = Bundle()
+            args.putString(KEY_ZIPCODE, zipcode)
+            fragment.arguments = args
+
             return fragment
         }
-
     }
 
 }

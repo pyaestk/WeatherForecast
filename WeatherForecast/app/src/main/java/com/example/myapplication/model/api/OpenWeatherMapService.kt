@@ -12,8 +12,17 @@ interface OpenWeatherMapService {
     fun currentWeather(
         @Query("zip") zipCode: String,
         @Query("units") units: String,
-        @Query("appId") apiKey: String,
+        @Query("appid") apiKey: String,
     ): Call<CurrentWeather>
+
+    @GET("/data/2.5/forecast")
+    fun sevenDayForecast(
+        @Query("lat") lat: Float,
+        @Query("lon") lon: Float,
+        @Query("exclude") exclude: String,
+        @Query("units") units: String,
+        @Query("appid") apiKey: String,
+    ): Call<WeeklyForecast>
 }
 
 fun createOpenWeatherMapService(): OpenWeatherMapService {
