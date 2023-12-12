@@ -3,18 +3,17 @@ package com.example.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.myapplication.R
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
 import com.example.myapplication.model.api.DailyForecast
-import java.text.SimpleDateFormat
-import java.util.Date
 
-private val DATE_FORMAT = SimpleDateFormat("MM-dd-yyyy")
 class ForecastAdapter(
     private val tempDisplaySettingManager: TempDisplaySettingManager,
     private val clickHandler: (DailyForecast) -> Unit
@@ -25,10 +24,14 @@ class ForecastAdapter(
         private val tempText: TextView = view.findViewById(R.id.tempText)
         private val desText: TextView = view.findViewById(R.id.desText)
         private val dateText: TextView = view.findViewById(R.id.dateText)
+        private val icon: ImageView = view.findViewById(R.id.forecastIcon)
         fun bind(dailyForecast: DailyForecast) {
-            tempText.text = formatTempForDisplay(dailyForecast.temp.max, tempDisplaySettingManager.getTempDisplaySetting())
+            tempText.text = formatTempForDisplay(dailyForecast.main.temp, tempDisplaySettingManager.getTempDisplaySetting())
             desText.text = dailyForecast.weather[0].description
-            dateText.text = DATE_FORMAT.format(Date(dailyForecast.date * 1000))
+            dateText.text = dailyForecast.dateTimeText
+
+            val iconId = dailyForecast.weather[0].icon
+            icon.load("http://openweathermap.org/img/wn/${iconId}@2x.png")
         }
 
     }

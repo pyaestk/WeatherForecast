@@ -43,8 +43,7 @@ class WeeklyForecastFragment : Fragment() {
 
         val weeklyForecastObserver = Observer<WeeklyForecast> { weeklyForecast ->
             //update list UI (adapter)
-            Log.d("WeeklyForecastFragment", "Observer triggered: $weeklyForecast")
-            forecastAdapter.submitList(weeklyForecast.daily)
+            forecastAdapter.submitList(weeklyForecast.list)
         }
 
         forecastRepo.weeklyForecast.observe(viewLifecycleOwner, weeklyForecastObserver) //this
@@ -71,7 +70,7 @@ class WeeklyForecastFragment : Fragment() {
     }
 
     private fun showForecastDetails(forecast: DailyForecast) {
-        val temp = forecast.temp.max
+        val temp = forecast.main.temp
         val description = forecast.weather[0].description
         val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(temp, description)
         findNavController().navigate(action)

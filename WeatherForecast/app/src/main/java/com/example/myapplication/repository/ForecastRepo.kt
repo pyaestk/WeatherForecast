@@ -52,12 +52,11 @@ class ForecastRepo {
                 val weatherResponse = response.body()
                 if (weatherResponse != null) {
                     // load 7 day forecast
-                    val forecastCall = createOpenWeatherMapService().sevenDayForecast(
+                    val forecastCall = createOpenWeatherMapService().fiveDayForecast(
                         lat = weatherResponse.coord.lat,
                         lon = weatherResponse.coord.lon,
-                        exclude = "current,minutely,hourly",
                         units = "imperial",
-                        apiKey = BuildConfig.OPEN_WEATHER_MAP_API_KEY
+                        apiKey = BuildConfig.OPEN_WEATHER_MAP_API_KEY,
                     )
                     forecastCall.enqueue(object : Callback<WeeklyForecast>{
                         override fun onResponse(
