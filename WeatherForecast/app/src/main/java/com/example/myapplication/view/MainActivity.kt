@@ -13,6 +13,7 @@ import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.showTempDisplayDialog
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
  class MainActivity : AppCompatActivity() {
 
