@@ -21,6 +21,7 @@ import com.example.myapplication.repository.Location
 import com.example.myapplication.repository.LocationRepo
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CurrentForecastFragment : Fragment() {
@@ -34,6 +35,8 @@ class CurrentForecastFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_current_forecast, container, false) 
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
+
+        view.findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle("Current Forecast")
 
         // Inflate the layout for this fragment
 

@@ -28,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
         //for bottom app bar
         val navController = findNavController(R.id.nav_host_fragment)
 //        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle(R.string.app_name)
+//        findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle(R.string.app_name)
         findViewById<BottomNavigationView>(R.id.bottomNavigationbar).setupWithNavController(navController)
 
     }

@@ -18,6 +18,7 @@ import com.example.myapplication.repository.ForecastRepo
 import com.example.myapplication.repository.Location
 import com.example.myapplication.repository.LocationRepo
 import com.example.myapplication.utils.TempDisplaySettingManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class WeeklyForecastFragment : Fragment() {
@@ -30,6 +31,9 @@ class WeeklyForecastFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
+
+        view.findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle("3 Hour 5 day Forecast")
+        
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
         val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
 
