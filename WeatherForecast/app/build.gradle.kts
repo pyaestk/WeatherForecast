@@ -66,4 +66,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-moshi:2.5.0")
     //coil
     implementation("io.coil-kt:coil:2.5.0")
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 }

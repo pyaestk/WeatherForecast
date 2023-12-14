@@ -31,8 +31,6 @@ class WeeklyForecastFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_weekly_forecast, container, false)
-
-        view.findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle("Forecast Predictions")
         
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
         val zipcode = arguments?.getString(KEY_ZIPCODE) ?: ""
@@ -76,7 +74,9 @@ class WeeklyForecastFragment : Fragment() {
     private fun showForecastDetails(forecast: DailyForecast) {
         val temp = forecast.main.temp
         val description = forecast.weather[0].description
-        val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(temp, description)
+        val date = forecast.dateTimeText
+        val icon = forecast.weather[0].icon
+        val action = WeeklyForecastFragmentDirections.actionWeeklyForecastFragmentToForecastDetailsFragment(icon, temp, description, date)
         findNavController().navigate(action)
     }
 

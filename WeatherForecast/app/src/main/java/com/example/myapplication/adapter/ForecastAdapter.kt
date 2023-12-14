@@ -29,7 +29,7 @@ class ForecastAdapter(
             tempText.text = formatTempForDisplay(dailyForecast.main.temp, tempDisplaySettingManager.getTempDisplaySetting())
             desText.text = dailyForecast.weather[0].description
             dateText.text = dailyForecast.dateTimeText
-
+            //coil
             val iconId = dailyForecast.weather[0].icon
             icon.load("http://openweathermap.org/img/wn/${iconId}@2x.png")
         }

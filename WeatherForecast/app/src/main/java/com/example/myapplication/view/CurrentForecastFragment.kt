@@ -36,7 +36,6 @@ class CurrentForecastFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_current_forecast, container, false) 
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
 
-        view.findViewById<MaterialToolbar>(R.id.materialToolbar).setTitle("Current Forecast")
 
         // Inflate the layout for this fragment
 
