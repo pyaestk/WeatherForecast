@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +14,7 @@ import coil.load
 import com.example.myapplication.databinding.FragmentForecastDetailBinding
 import com.example.myapplication.utils.TempDisplaySettingManager
 import com.example.myapplication.utils.formatTempForDisplay
+import com.example.myapplication.viewModel.ForecastDetailViewModelFactory
 import com.example.myapplication.viewModel.ForecastDetailsViewModel
 import com.example.myapplication.viewModel.ForecastDetailsViewState
 
@@ -25,7 +27,10 @@ class ForecastDetailsFragment : Fragment() {
     private var _binding: FragmentForecastDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel = ForecastDetailsViewModel()
+    private val viewModel: ForecastDetailsViewModel by viewModels(
+        factoryProducer = { viewModelFactory }
+    )
+    private lateinit var viewModelFactory: ForecastDetailViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,21 +38,15 @@ class ForecastDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentForecastDetailBinding.inflate(inflater, container, false)
-//        val view = inflater.inflate(R.layout.fragment_forecast_detail, container, false)
+
+        viewModelFactory = ForecastDetailViewModelFactory(args)
+
         tempDisplaySettingManager = TempDisplaySettingManager(requireContext())
         
         binding.materialToolbar.title = "Forecast Detail"
         binding.materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
-
-        //don't need anymore
-/*        binding.dateTextView.text = args.date
-        val iconId = args.icon
-        binding.DetailImage.load("http://openweathermap.org/img/wn/${iconId}@2x.png")
-        binding.temptextView.text = formatTempForDisplay(args.temp, tempDisplaySettingManager.getTempDisplaySetting())
-        binding.destextView.text = args.description*/
 
         return binding.root
     }
@@ -61,7 +60,6 @@ class ForecastDetailsFragment : Fragment() {
             binding.DetailImage.load(viewState.icon)
         }
         viewModel.viewState.observe(viewLifecycleOwner, viewStateObserver)
-        viewModel.processArgs(args)
     }
 
     override fun onDestroyView() {
