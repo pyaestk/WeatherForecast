@@ -1,2 +1,2 @@
-# WeatherForecast-App-GOOBAR
-this is the app from goobar android course
+# WeatherForecast app
+this is the app from Goobar android course
